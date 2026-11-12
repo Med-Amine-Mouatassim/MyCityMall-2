@@ -1,5 +1,4 @@
-# MyCityMall : 
-mycitymall-mcm.web.app
+# MyCityMall : https://mycitymall-mcm.web.app/index.html
 
 MyCityMall (MCM) is a browser based multi shop e commerce prototype. It brings together a customer facing mall explorer, seller tools, Firebase backed account and catalogue data, and a product discovery assistant.
 
