@@ -1,0 +1,47 @@
+[
+    {
+        "nom":  "Shop 1",
+        "description":  "Le leader de l\u0027équipement sportif performance.",
+        "image":  "../mcm/photos/adidas.jpg",
+        "emplacement":  "Zone A, N°12",
+        "id_magasin":  "shop1",
+        "ownerId":  "YS9TMJ14uYSakC9LrcV1uQfx9jA2",
+        "email":  "https://formspree.io/f/mnjpnraa"
+    },
+    {
+        "nom":  "Shop 2",
+        "description":  "Just Do It. Découvrez les dernières collections running.",
+        "image":  "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
+        "emplacement":  "Zone B, N°05",
+        "id_magasin":  "shop2",
+        "ownerId":  "COLLER_ICI_L_UID_FIREBASE_DU_VENDEUR_shop2",
+        "email":  ""
+    },
+    {
+        "nom":  "Shop 3",
+        "description":  "L\u0027alliance du style urbain et de la performance.",
+        "image":  "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400",
+        "emplacement":  "Zone A, N°08",
+        "id_magasin":  "shop3",
+        "ownerId":  "YWNydaouDgdvKxsk6RgHqcb7cmf2",
+        "email":  ""
+    },
+    {
+        "nom":  "Shop 4",
+        "description":  "L\u0027alliance du style urbain et de la performance.",
+        "image":  "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400",
+        "emplacement":  "Zone A, N°08",
+        "id_magasin":  "shop4",
+        "ownerId":  "YWNydaouDgdvKxsk6RgHqcb7cmf2",
+        "email":  ""
+    },
+     {
+        "nom":  "Shop 5",
+        "description":  "L\u0027alliance du style urbain et de la performance.",
+        "image":  "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400",
+        "emplacement":  "Zone A, N°08",
+        "id_magasin":  "shop5",
+        "ownerId":  "YWNydaouDgdvKxsk6RgHqcb7cmf2",
+        "email":  ""
+    }
+]

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogue - MyCityMall</title>
+    <link rel="stylesheet" href="catalogue.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+   <header class="header-simple fixed-header">
+        <a href="#" class="return-home-button" onclick="history.back(); return false;">
+            <i class="fa-solid fa-arrow-left"></i> Retour
+        </a>
+        <h1 class="logo">MyCityMall</h1>
+    </header>
+
+    <main class="container">
+        <section class="catalogue-header">
+            <h2 id="shop-title">Notre Collection</h2>
+            <p>Découvrez nos articles exclusifs.</p>
+            <div id="shop-menu" class="shop-menu" aria-label="Liens du magasin">
+                <a id="shop-instagram" class="shop-link" href="#" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-instagram"></i>
+                    Instagram
+                </a>
+                <a id="shop-location-link" class="shop-link" href="#" target="_blank" rel="noopener">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span id="shop-location-text">Localisation</span>
+                </a>
+                <div id="shop-delivery" class="shop-info" style="display: none;">
+                    <i class="fa-solid fa-truck"></i>
+                    <span id="shop-delivery-price">Livraison</span>
+                </div>
+                <div id="shop-delivery-areas" class="shop-info" style="display: none;">
+                    <i class="fa-solid fa-map"></i>
+                    <span id="shop-delivery-places">Zones de livraison</span>
+                </div>
+                <div id="shop-delivery-note" class="shop-info" style="display: none;">
+                    <i class="fa-solid fa-circle-info">Gratuit a partir   de:</i>
+                    <span id="shop-delivery-note-text"></span>
+                </div>
+            </div>
+        </section>
+
+        <section id="products-list" class="products-grid"></section>
+
+        <section id="cart-summary" class="cart-summary">
+            <h3><i class="fa-solid fa-cart-shopping"></i> Mon Panier (<span id="cart-count">0</span>)</h3>
+            <div id="cart-items-display" class="cart-items-list">
+                <p class="empty-cart-message">Votre panier est vide.</p>
+            </div>
+            
+            <div class="cart-total">
+                <span>Total :</span>
+                <span id="cart-subtotal">0.00 DH</span>
+            </div>
+
+            <button id="show-form-button" class="checkout-button" disabled>Commander</button>
+
+            <div id="checkout-form-container" style="display: none; margin-top: 20px; border-top: 1px solid #333; padding-top: 20px;">
+                <form id="order-form" action="" method="POST">
+                    <input type="text" name="nom" placeholder="Nom complet" required style="width:100%; margin-bottom:10px; padding:8px; background:#252525; color:white; border:1px solid #444;">
+                    <input type="tel" name="telephone" placeholder="Téléphone" required style="width:100%; margin-bottom:10px; padding:8px; background:#252525; color:white; border:1px solid #444;">
+                    <textarea name="adresse" placeholder="Adresse de livraison" required style="width:100%; margin-bottom:10px; padding:8px; background:#252525; color:white; border:1px solid #444; height:60px;"></textarea>
+                    
+                    <input type="hidden" name="details_commande" id="hidden-facture">
+                    <input type="hidden" name="total_final" id="hidden-total">
+
+                    <button type="submit" id="submit-order" class="checkout-button">Envoyer la commande</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-body">
+                </div>
+        </div>
+    </div>
+
+    <script type="module" src="catalogue.js"></script>
+</body>
+</html>

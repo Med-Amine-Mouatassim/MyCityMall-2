@@ -1,0 +1,98 @@
+[
+    {
+        "id": 1,
+        "id_magasin": "adidas",
+        "name": "Adidas Ultraboost",
+        "price": 180.00,
+        "sizes": ["S", "M", "L", "XL"],
+        "description": "Le confort ultime pour le running.",
+        "image": "../mcm/photos/adidas.jpg"
+    },
+    {
+        "id": 2,
+        "id_magasin": "nike",
+        "name": "Nike Air Max",
+        "price": 150.00,
+        "sizes": ["S", "M", "L", "XL"],
+        "description": "Style iconique et amorti Air.",
+        "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400"
+    },
+    {
+        "id": 3,
+        "id_magasin": "puma",
+        "name": "Puma Smash",
+        "price": 65.00,
+        "sizes": ["S", "M", "L"],
+        "description": "Classique et élégant pour le quotidien.",
+        "image": "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400"
+    },
+    {
+        "id": 4,
+        "id_magasin": "adidas",
+        "name": "Adidas Ultraboost",
+        "price": 180.00,
+        "sizes": ["S", "M", "L", "XL"],
+        "description": "Le confort ultime pour le running.",
+        "image": "../mcm/photos/adidas.jpg"
+    },
+       {
+        "id": 5,
+        "id_magasin": "adidas",
+        "name": "Adidas Ultraboost",
+        "price": 180.00,
+        "description": "Le confort ultime pour le running.",
+        "image": "../mcm/photos/adidas.jpg"
+    },
+       {
+        "id": 6,
+        "id_magasin": "adidas",
+        "name": "Adidas Ultraboost",
+        "price": 180.00,
+        "description": "Le confort ultime pour le running.",
+        "image": "../mcm/photos/adidas.jpg"
+    },
+    {
+        "id": 7,
+        "id_magasin": "puma",
+        "name": "Puma Smash",
+        "price": 65.00,
+        "description": "Classique et élégant pour le quotidien.",
+        "image": "../mcm/photos/puma.jpg"
+    },
+    {
+        "id": 8,
+        "id_magasin": "puma",
+        "name": "Puma Smash",
+        "price": 65.00,
+        "description": "Classique et élégant pour le quotidien.",
+        "image": "../mcm/photos/puma.jpg"
+    },
+    {
+        "id": 9,
+        "id_magasin": "puma",
+        "name": "Puma Smash",
+        "price": 65.00,
+        "sizes": ["33"],
+        "description": "Classique et élégant pour le quotidien.",
+        "image": "../mcm/photos/puma.jpg"
+    },
+    {
+        "id": 10,
+        "id_magasin": "puma",
+        "name": "Puma Smash",
+        "price": 65.00,
+        "description": "Classique et élégant pour le quotidien.",
+        "image": "../mcm/photos/puma.jpg"
+    },
+    {
+        "id": 11,
+        "id_magasin": "nike",
+        "name": "Nike Air Max",
+        "price": 150.00,
+        "sizes": ["S", "M", "L", "XL"],
+        "description": "Style iconique et amorti Air.",
+        "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400"
+    }
+    
+
+]

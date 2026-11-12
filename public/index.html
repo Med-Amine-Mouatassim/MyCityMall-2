@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Faites vos achats en toute sécurité sur MyCityMall. Découvrez une large sélection de produits de qualité aux meilleurs prix.">
+    
+    <meta property="og:title" content="MyCityMall | 1er Mall Virtuel au Maroc">
+    <meta property="og:description" content="Le meilleur choix de produits au meilleur prix.">
+    <meta property="og:image" content="./mcm/photos/MCM logo.png">
+    <meta property="og:url" content="https://mycitymall-mcm.web.app">
+    <title>MyCityMall | Votre Mall en Ligne</title>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./mcm/indexstyle.css">
+    <link rel="icon" sizes="32x32" href="./mcm/photos/MCM logo.png">
+    <link rel="icon" sizes="16x16" href="./mcm/photos/favicon-16.png">
+    <link rel="apple-touch-icon" href="./mcm/photos/favicon-180.png">
+    <style>
+        @media (max-width: 768px) {
+            #seller-modal .modal-content-white {
+                width: 92vw;
+                max-width: 92vw;
+                margin: 0 auto;
+                padding: 18px;
+            }
+
+            #form-vendeur {
+                max-height: 70vh;
+                overflow-y: auto;
+                padding-right: 6px;
+            }}
+
+        @media (max-width: 480px) {
+            #seller-modal .modal-header {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            #seller-modal .modal-header h2 {
+                font-size: 1.2rem;
+            }
+
+            #form-vendeur input,
+            #form-vendeur select,
+            #form-vendeur textarea {
+                font-size: 0.95rem;
+            }
+
+            #form-vendeur button[type="submit"] {
+                width: 100%;
+            }
+
+            #form-vendeur label {
+                display: block;
+            }
+        }
+    </style>
+
+</head>
+<body>
+      <div id="preloader">
+  <div class="loader"></div>
+</div>
+
+    <div id="intro-overlay">
+        <div class="animation-content">
+            <h1>"MyCityMall  le  1er  Mall  virtuel  au   Maroc"</h1>
+        </div>
+    </div>
+
+  
+
+
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="./mcm/photos/MCM logo.png" alt="MCM Logo" width="45" height="45" decoding="async">
+            <span class="logo-text">MyCityMall</span>
+        </div>
+        
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" id="main-search" placeholder="Rechercher de catégories, vendeurs...">
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <div id="search-suggestions" class="suggestions-dropdown"></div>
+            </div>
+        </div>
+
+        <div class="nav-tools">
+            <div class="icons">
+                <div class="cart-container" style="position: relative; cursor: pointer;">
+    <a href="#cart" class="icon-link" id="cart-icon-index" style="text-decoration: none; color: inherit;">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="cart-badge" style="background: rgb(203, 88, 169); border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; top: -10px; right: -10px; display: flex;">0</span>
+    </a>
+</div>
+
+<div id="recent-order-popup" style="display: none; position: absolute; right: 20px; top: 60px; background: white; color: black; border: 1px solid #ccc; padding: 15px; width: 250px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 1000;">
+    <h4 style="margin-top:0;">Dernière commande</h4>
+    <div id="popup-content" style="font-size: 0.9rem;"></div>
+    <button onclick="document.getElementById('recent-order-popup').style.display='none'" style="margin-top:10px; width:100%;">Fermer</button>
+</div>
+               <div class="profile-container">
+    <a href="#profile" class="icon-link profile">
+        <i class="fa-solid fa-user"></i>
+        <div id="user-profile-info">
+    
+</div>
+    </a>
+   <div class="profile-dropdown">
+    <div id="user-logged-in" style="display: none;">
+        <div class="dropdown-header">
+            <p id="user-full-name" style="color: #ff4d6d; font-size: 1.1rem;">Chargement...</p>
+            <p id="user-email" style="font-size: 0.8rem; font-weight: normal; color: #636e72;"></p>
+        </div>
+        <hr>
+        <a href="./mcm/vendeur.html" class="dropdown-item"><i class="fa-solid fa-user-gear"></i> Mon Profil</a>
+        <a href="#" id="logout-btn" class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i> Se déconnecter</a>
+    </div>
+
+    <div id="user-guest">
+        <div class="dropdown-header">
+            <p>Bienvenue !</p>
+        </div>
+        <hr>
+        <a href="./mcm/login.html" class="dropdown-item"><i class="fa-solid fa-right-to-bracket"></i> Se connecter</a>
+        <a href="./mcm/register.html" class="dropdown-item"><i class="fa-solid fa-user-plus"></i> Créer un compte</a>
+    </div>
+</div>
+</div>
+                
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Bienvenue sur MyCityMall!</h1>
+            <p>Découvrez une collection de produits et de vendeurs</p>
+            <a href="./mcm/explorer.html" id="btn-start-explorer" class="btn-explorer">Explorer</a>
+        </div>
+    </section>
+
+
+
+
+
+
+
+</header>
+
+
+ <section class="site-info">
+    <div class="info-container">
+        <div class="description-box">
+            <h2>À propos de MyCityMall</h2>
+            <p>
+                MyCityMall est le premier mall virtuel au Maroc, conçu pour offrir une expérience 
+                de shopping immersive et moderne. Nous regroupons les meilleures boutiques 
+                locales dans un univers numérique unique. Pour commencer votre expérience cliquez sur le bouton "Explorer" ci-dessus
+            </p>
+        </div>
+
+        <div class="seller-offer">
+            <div class="offer-card">
+                <h3>Devenez Vendeur sur MyCityMall</h3>
+                <p>Boostez votre visibilité et rejoignez la révolution numérique du commerce marocain.</p>
+                <ul class="offer-benefits">
+                    <li><i class="fa-solid fa-check"></i> Commission réduite à 0% le premier mois</li>
+                    <li><i class="fa-solid fa-check"></i> Support technique 24/7</li>
+                    <li><i class="fa-solid fa-check"></i> Accès à des milliers de clients</li>
+                </ul>
+              <a href="javascript:void(0)" class="btn-seller" id="open-seller-form">Ouvrir ma boutique</a>
+              <div id="seller-modal" class="custom-modal">
+    <div class="modal-content-white">
+        <span class="close-modal" id="close-seller-form">&times;</span>
+        <div class="modal-header">
+            <i class="fa-solid fa-store" style="color: #ff4d6d;"></i>
+            <h2>Devenir Vendeur</h2>
+        </div>
+        
+        <form action="https://formspree.io/f/xzddedrv" method="POST" enctype="multipart/form-data" id="form-vendeur">
+            <div style="margin-bottom: 15px;">
+                <label>Nom de la Boutique *</label>
+                <input type="text" name="nom_boutique" required style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label>Logo du magasin</label>
+                <input type="file" name="logo_magasin" accept="image/*" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label>Lien de votre page Instagram</label>
+                <input type="url" name="instagram" placeholder="https://www.instagram.com/votrepage" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;">
+            </div>
+            
+                        <div style="margin-bottom: 15px;">
+                <label>Type de produits vendus *</label>
+                <div class="category-grid" role="radiogroup" aria-label="Type de produits vendus">
+                    <label class="category-card">
+                        <input type="radio" name="categorie" value="fashion" required>
+                        <span>Vetements (fashion)</span>
+                    </label>
+                    <label class="category-card">
+                        <input type="radio" name="categorie" value="electronique">
+                        <span>Électronique</span>
+                    </label>
+                    <label class="category-card">
+                        <input type="radio" name="categorie" value="sport">
+                        <span>Tout ce qui est en relation avec "Sport"</span>
+                    </label>
+                    <label class="category-card">
+                        <input type="radio" name="categorie" value="beaute">
+                        <span>Tout ce qui est en relation avec "Beauté et accessoires"</span>
+                    </label>
+                    <label class="category-card">
+                        <input type="radio" name="categorie" value="autre">
+                        <span>Autre</span>
+                    </label>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label>Ville de résidence au Maroc *</label>
+                <input type="text" name="ville" required style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label>Avez-vous déjà une boutique physique ?</label>
+                <div style="display: flex; gap: 20px; margin-top: 5px;">
+                    <label><input type="radio" name="boutique_physique" value="oui" id="boutique-physique-oui"> Oui</label>
+                    <label><input type="radio" name="boutique_physique" value="non" id="boutique-physique-non"> Non</label>
+                </div>
+            </div>
+
+            <div id="physical-location-container" style="margin-bottom: 15px; display: none;">
+                <label>Localisation de la boutique physique</label>
+                <input type="text" name="localisation_boutique" placeholder="Adresse ou quartier" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label>Votre numéro WhatsApp *</label>
+                <input type="tel" name="whatsapp" placeholder="..." required style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label>Pourquoi voulez-vous rejoindre MyCityMall ?</label>
+                <textarea name="motivation" rows="3" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;"></textarea>
+            </div>
+
+            <button type="submit" class="btn-seller" style="border:none; cursor:pointer;">Envoyer ma candidature</button>
+        </form>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    (function () {
+        var oui = document.getElementById('boutique-physique-oui');
+        var non = document.getElementById('boutique-physique-non');
+        var locationContainer = document.getElementById('physical-location-container');
+
+        if (!oui || !non || !locationContainer) {
+            return;
+        }
+
+        function updateLocationVisibility() {
+            locationContainer.style.display = oui.checked ? 'block' : 'none';
+        }
+
+        oui.addEventListener('change', updateLocationVisibility);
+        non.addEventListener('change', updateLocationVisibility);
+        updateLocationVisibility();
+    })();
+</script>
+<div id="cart-modal" class="custom-modal">
+    <div class="modal-content-white">
+        <span class="close-modal">&times;</span>
+        <div class="modal-header">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <h2>Ma Dernière Commande</h2>
+        </div>
+        <div id="order-details-content">
+            </div>
+        <button class="btn-close-rect" id="close-btn-cart">Fermer</button>
+    </div>
+</div>
+<script type="module" src="./mcm/indexjs.js"></script>
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <div class="footer-logo">
+                <img src="./mcm/photos/MCM logo.png" alt="MCM Logo" width="40" height="40" loading="lazy" decoding="async">
+                <span>MyCityMall</span>
+            </div>
+            <p>Le premier mall virtuel au Maroc. Une expérience shopping unique depuis chez vous.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fa-solid fa-address-book"></i></a>
+                <a href="https://www.instagram.com/mycitymall_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h4>Centre d'Aide</h4>
+            <ul>
+                <li><a href="./mcm/aide.html"><i class="fa-solid fa-circle-exclamation"></i> Faire une réclamation</a></li>
+                <li><a href="./mcm/aide.html"><i class="fa-solid fa-briefcase"></i> Voir nos offres</a></li>
+                <li><a href="./mcm/aide.html"><i class="fa-solid fa-question-circle"></i> FAQ</a></li>
+                <li><a href="mailto:support@mycitymall.ma"><i class="fa-solid fa-envelope"></i> Contactez-nous</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h4>Votre avis compte</h4>
+            <p>Aidez-nous à nous améliorer en partageant votre expérience.</p>
+            <button class="btn-feedback" onclick="alert('Merci ! Formulaire d\'avis bientôt disponible.')">
+                <i class="fa-solid fa-pen-to-square"></i> Laisser un avis
+            </button>
+            <div class="rating-display">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+                <span>(4.5/5)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2026 MyCityMall Maroc. Tous droits réservés.</p>
+    </div>
+</footer>
+
+</body>
+</html>

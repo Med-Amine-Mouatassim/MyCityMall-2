@@ -1,0 +1,955 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rayon Electronique - MyCityMall</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- VARIABLES ET RESET --- */
+        :root {
+            --primary-cyan: #464ef8;
+            --dark-bg: #121212;
+            --card-bg: #1f1f1f;
+            --text-gray: #ccc;
+            --white: #ffffff;
+        }
+
+        
+/* Centered Search Bar */
+.search-container {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.search-bar {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+}
+
+ 
+.search-bar input {
+    width: 100%;
+    padding: 12px 25px;
+    border-radius: 30px;
+    border: 1px solid #e0e0e0;
+    background: #f8f9fa;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+    border-color: var(--primary-cyan);
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(255, 77, 109, 0.1);
+}
+
+.search-bar button {
+    position: absolute;
+    right: 5px;
+    background: transparent;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    color: #636e72;
+    font-size: 1.1rem;
+}
+
+.search-container { position: relative; }
+
+.suggestions-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    z-index: 2000;
+    max-height: 320px;
+    overflow-y: auto;
+    display: none; /* CachÃ© par dÃ©faut */
+}
+
+.suggestion-item {
+    padding: 12px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+}
+
+.suggestion-item:hover { background: #f8f9fa; }
+
+.suggestion-type {
+    font-size: 0.75rem;
+    color: #ff4d6d;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: #0a0a0a; /* Couleur de secours */
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* L'image de fond responsive */
+body::before {
+    content: "";
+    position: fixed; /* Reste fixe lors du scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Remplacez l'URL par votre image high-tech */
+    
+    background-size: cover; /* L'image couvre tout l'Ã©cran sans se dÃ©former */
+    background-position: center; /* Centre l'image */
+    background-repeat: no-repeat;
+    z-index: -1; /* Place l'image derriÃ¨re tout le contenu */
+}
+
+footer {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Rendu semi-transparent pour voir la vidÃ©o derriÃ¨re */
+    backdrop-filter: blur(5px); /* Optionnel: floute lÃ©gÃ¨rement la vidÃ©o sous le footer */
+    padding: 30px 0;
+    text-align: center;
+    border-top: 1px solid #222;
+    margin-top: 50px;
+    position: relative;
+    z-index: 1;
+}
+
+/* 2. Mode Responsive pour les cartes (Mobile uniquement) */
+@media (max-width: 767px) {
+    #project-list {
+        gap: 15px; /* RÃ©duit l'espace entre les cartes */
+        width: 95%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .project-card-container {
+        height: 320px; /* Taille rÃ©duite (au lieu de 400px sur PC) */
+    }
+
+    .card-front h3, .card-back h3 {
+        font-size: 1.2rem; /* Texte plus petit */
+    }
+
+    .card-back p {
+        font-size: 0.7rem; /* Description plus compacte */
+        margin: 5px 0;
+    }
+
+    .btn-visit {
+        padding: 8px 18px;
+        font-size: 0.6rem;
+    }
+}
+        /* --- HEADER & RETOUR --- */
+        header {
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: flex-start;
+            box-sizing: border-box;
+        }
+
+        .btn-back {
+            text-decoration: none;
+            color: var(--white);
+            border: 1px solid var(--primary-cyan);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-back:hover {
+            background: var(--primary-cyan);
+            color: var(--dark-bg);
+        }
+
+        h1 { 
+            margin: 30px 0; 
+            color: var(--primary-cyan); 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            text-align: center;
+        }
+        
+        /* --- Responsive fluide --- */
+        h1 { font-size: clamp(1.6rem, 3vw, 2.4rem); }
+        header { flex-wrap: wrap; gap: 12px; }
+        .search-container { width: min(680px, 100%); padding: 0; }
+        #project-list {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: clamp(16px, 3vw, 30px);
+            width: min(1200px, 92vw);
+        }
+        .project-card-container { height: clamp(260px, 40vw, 400px); }
+      
+
+
+        /* --- GRILLE DE MAGASINS --- */
+        #project-list { 
+            display: grid; 
+            grid-template-columns: repeat(3, minmax(0, 1fr)); 
+            gap: 30px; 
+            width: 90%; 
+            max-width: 1200px; 
+            padding-bottom: 50px; 
+            flex-grow: 1;
+        }
+        
+        .project-card-container { height: 400px; perspective: 1000px; }
+        
+        .project-card-inner { 
+            position: relative; 
+            width: 100%; 
+            height: 100%; 
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            transform-style: preserve-3d; 
+            cursor: pointer; 
+        }
+        
+        .project-card-container:hover .project-card-inner { transform: rotateY(180deg); }
+        
+        .card-face { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            backface-visibility: hidden; 
+            border-radius: 15px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 25px; 
+            box-sizing: border-box; 
+            overflow: hidden; 
+        }
+        
+        /* Face Avant */
+        .card-front { 
+            background-size: cover; 
+            background-position: center; 
+            border: 1px solid #333; 
+        }
+        
+        .card-front::after { 
+            content: ''; 
+            position: absolute; 
+            top:0; left:0; width:100%; height:100%; 
+            background: rgba(0,0,0,0.5); 
+            z-index: 1; 
+        }
+        
+        .card-front h3 { 
+            position: relative; 
+            z-index: 2; 
+            font-size: 1.8rem; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); 
+        }
+
+        .flip-hint {
+            position: relative;
+            z-index: 2;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: var(--primary-cyan);
+            border: 1px solid var(--primary-cyan);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        /* Face ArriÃ¨re */
+        .card-back { 
+            background: var(--card-bg); 
+            transform: rotateY(180deg); 
+            border: 2px solid var(--primary-cyan); 
+            text-align: center; 
+        }
+        
+        .card-back h3 { color: var(--primary-cyan); margin-bottom: 15px; }
+        
+        .card-back p { font-size: 0.9rem; color: var(--text-gray); line-height: 1.5; }
+        
+        .emplacement { 
+            margin: 20px 0; 
+            color: #ff4d6d; 
+            font-weight: bold; 
+            font-size: 0.9rem; 
+        }
+        
+        .btn-visit { 
+            text-decoration: none; 
+            background: var(--primary-cyan); 
+            color: #121212; 
+            padding: 12px 30px; 
+            border-radius: 5px; 
+            font-weight: bold; 
+            transition: 0.3s; 
+        }
+
+        .card-back {
+    /* Assure que la face arriÃ¨re est bien devant quand elle est retournÃ©e */
+    backface-visibility: hidden;
+    z-index: 2;
+}
+
+.btn-visit {
+    position: relative;
+    z-index: 10; /* Force le bouton au premier plan */
+    display: inline-block; /* NÃ©cessaire pour que le padding et le clic fonctionnent bien */
+}
+        
+        .btn-visit:hover { background: var(--white); transform: scale(1.05); }
+
+        /* --- FOOTER --- */
+       
+
+      
+        
+        .social-links { margin-top: 10px; display: flex; justify-content: center; gap: 20px; }
+        
+        .social-links a { color: var(--primary-cyan); font-size: 1.6rem; transition: 0.3s; }
+        
+        .social-links a:hover { color: var(--white); }
+
+
+
+       /* --- RESPONSIVE DESIGN --- */
+
+/* Ajustements pour Tablettes (moins de 768px) */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Empile le bouton retour et la recherche */
+        gap: 15px;
+        align-items: center;
+    }
+
+    .search-container {
+        width: 100%;
+        padding: 0;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        margin: 20px 0;
+    }
+
+    #project-list {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Cartes lÃ©gÃ¨rement plus petites */
+        gap: 20px;
+        width: 95%;
+    }
+
+    .project-card-container {
+        aspect-ratio: 1 / 1;
+        height: auto;
+    }
+}
+
+/* Ajustements pour Mobiles (moins de 480px) */
+@media (max-width: 480px) {
+    .btn-back { width: 100%; max-width: 100%; box-sizing: border-box; }
+    #project-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .project-card-container {
+        height: auto;
+        aspect-ratio: 1 / 1;
+    }
+
+    .card-front h3, .card-back h3 {
+        font-size: 1.2rem;
+    }
+
+    .btn-back {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .search-bar input {
+        padding: 10px 15px;
+        font-size: 0.5rem;
+    }
+}
+
+/* Correction pour l'affichage des cartes sur Ã©crans tactiles */
+/* Permet de voir le dos de la carte au clic si le hover ne fonctionne pas bien */
+.project-card-container:active .project-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Style pour le bouton favoris */
+.btn-fav {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--primary-cyan);
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 15;
+    transition: 0.3s;
+}
+
+.btn-fav:hover {
+    transform: scale(1.1);
+}
+
+.btn-fav.active {
+    background: #ff4d6d;
+    border-color: #ff4d6d;
+    color: white;
+}
+/* Gardez le hover pour les ordinateurs (Ã©crans larges) */
+@media (min-width: 1025px) {
+    .category-card:hover .card-inner {
+        transform: rotateY(180deg);
+    }
+}
+
+/* Pour les mobiles et tablettes : On utilise une classe .flipped */
+@media (max-width: 1024px) {
+    .category-card.flipped .card-inner {
+        transform: rotateY(180deg);
+    }
+}
+.card-inner {
+    transition: transform 0.6s ease;
+
+    transform-style: preserve-3d;
+}
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff; /* Couleur de fond */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Toujours au-dessus */
+}
+
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db; /* Couleur de l'animation */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  /* Transition de 0.5s pour le fondu */
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* Classe qu'on ajoutera en JavaScript */
+#preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Votre loader (le cercle qui tourne) */
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.card-front {
+    will-change: transform;
+    transform: translateZ(0);
+}
+.project-card-container {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.project-card-container.loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#bgVideo {
+    will-change: transform;
+    transform: translateZ(0);
+}
+* {
+    scroll-behavior: smooth;
+}
+
+/* Force cards to be square to match images */
+.project-card-container {
+    aspect-ratio: 1 / 1;
+    height: auto;
+}
+
+
+    /* RESPONSIVE FONT OVERRIDE */@media (max-width: 767px) {  .card-back p { font-size: 0.7rem; }}/* RESPONSIVE CARD SPEED */@media (max-width: 767px) {.project-card-container {        transition: opacity 0.25s ease, transform 0.25s ease;   transform: translateY(8px); }}/* DESKTOP VIDEO TUNING */@media (min-width: 768px) {    #bgVideo {       object-fit: cover;        object-position: center;     transform: scale(1.05);        filter: brightness(0.85) contrast(1.1);   }}
+/* Responsive text override */
+@media (max-width: 768px) {
+    .card-back p { font-size: 0.5rem; }
+    .btn-visit { font-size: 0.5rem; padding: 8px 16px; }
+}
+@media (max-width: 480px) {
+    .card-back p { font-size: 0.4rem; }
+    .btn-visit { font-size: 0.4rem; padding: 6px 12px; }
+}</style>
+</head>
+<body>
+
+     <div class="video-background">
+    <video autoplay muted loop playsinline id="bgVideo">
+        <source src="../mcm/photos/vd electro.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+</div>
+
+<style>
+    .video-background {
+        position : fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+    }
+
+    #bgVideo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Remplit l'Ã©cran sans dÃ©former */
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6); /* Voile sombre pour la lisibilitÃ© */
+    }
+/* RESPONSIVE FONT OVERRIDE */@media (max-width: 767px) {    .card-back p { font-size: 0.7rem; }}/* RESPONSIVE CARD SPEED */@media (max-width: 767px) {.project-card-container {        transition: opacity 0.25s ease, transform 0.25s ease;   transform: translateY(8px); }}/* DESKTOP VIDEO TUNING */@media (min-width: 768px) {    #bgVideo {       object-fit: cover;        object-position: center;     transform: scale(1.05);        filter: brightness(0.85) contrast(1.1);   }}</style>
+
+    <div id="preloader">
+  <div class="loader"></div>
+</div>
+
+    <header>
+        <a href="../mcm/explorer.html" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Retour a l'accueil
+        </a>
+
+
+         <div class="search-container">
+            <div class="search-bar">
+                <input type="text" id="main-search" placeholder="Rechercher de catégories, vendeurs...">
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <div id="search-suggestions" class="suggestions-dropdown" style="color: black;"></div>
+            </div>
+        </div>
+    </header>
+
+    <h1>Rayon Electronique</h1>
+
+    <div id="project-list">
+        </div>
+
+    <footer>
+        <p>&copy; 2026 MyCityMall - Le rayon Electronique. Tous droits reserves.</p>
+        <div class="social-links">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+    </footer>
+
+   
+<script type="module">
+    
+    import { auth, db } from '../mcm/firebase-config.js';
+    import { doc, getDoc, updateDoc, arrayUnion, arrayRemove, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    let currentUser = null;
+
+    // --- GESTION DE L'AUTHENTIFICATION ---
+    // VÃ©rifie si un utilisateur est connectÃ© avant de charger les magasins
+    onAuthStateChanged(auth, (user) => {
+        currentUser = user;
+        loadShops(); 
+    });
+
+    // On dÃ©finit le dÃ©lai minimum en millisecondes (ex: 800ms)
+const MIN_LOADING_TIME = 800;
+const startTime = Date.now();
+
+window.addEventListener('load', function() {
+    const currentTime = Date.now();
+    const elapsedTime = currentTime - startTime;
+    
+    // On calcule s'il reste du temps Ã  attendre
+    const remainingTime = Math.max(0, MIN_LOADING_TIME - elapsedTime);
+
+    setTimeout(() => {
+        const preloader = document.getElementById('preloader');
+        preloader.classList.add('hidden'); // DÃ©clenche le fondu CSS
+    }, remainingTime);
+});
+
+    // --- GESTION DES FAVORIS (LID AU COMPTE) ---
+    window.toggleFavorite = async function(shopId, btn) {
+        if (!currentUser) {
+            alert("Vous devez être connecte pour ajouter des favoris !");
+            window.location.href = '../mcm/login.html';
+            return;
+        }
+
+        const userRef = doc(db, "utilisateurs", currentUser.uid);
+        const isFav = btn.classList.contains('active');
+
+        try {
+            if (isFav) {
+                // Supprimer du rayon des favoris dans Firestore
+                await updateDoc(userRef, { favoris: arrayRemove(shopId) });
+                btn.classList.remove('active');
+                btn.innerHTML = '<i class="fa-regular fa-heart"></i>';
+            } else {
+                // Ajouter au rayon des favoris dans Firestore
+                await updateDoc(userRef, { favoris: arrayUnion(shopId) });
+                btn.classList.add('active');
+                btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
+            }
+        } catch (error) {
+            console.error("Erreur lors de la mise à jour des favoris :", error);
+        }
+    };
+
+        function normalizeCategorie(value) {
+        return String(value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+    }
+
+    async function fetchShops() {
+        const shops = [];
+        try {
+            const q = query(collection(db, "magasins"), where("categorie", "==", "electro"));
+            const snap = await getDocs(q);
+            snap.forEach((docSnap) => {
+                const data = docSnap.data();
+                if (data) shops.push(data);
+            });
+
+            if (!shops.length) {
+                const allSnap = await getDocs(collection(db, "magasins"));
+                const target = "autres";
+                allSnap.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    if (!data) return;
+                    if (normalizeCategorie(data.categorie) === target) {
+                        shops.push(data);
+                    }
+                });
+            }
+        } catch (e) {
+            console.error("Erreur chargement magasins:", e);
+        }
+
+        if (!shops.length) {
+            try {
+                const res = await fetch('electro.json');
+                const data = await res.json();
+                data.forEach((shop) => shops.push(shop));
+                console.warn("Fallback JSON utilisï¿½ pour autres.");
+            } catch (e) {
+                console.error("Erreur chargement JSON fallback:", e);
+            }
+        }
+
+        return shops;
+    }
+
+    // --- CHARGEMENT DYNAMIQUE DES MAGASINS ---
+    async function loadShops() {
+        const list = document.getElementById('project-list');
+        let userFavs = [];
+
+       
+    if (!list) return; // ðŸ›¡ï¸ sÃ©curitÃ©
+
+ 
+        
+
+        // RÃ©cupÃ©rer la liste des favoris depuis le compte utilisateur Firestore
+        if (currentUser) {
+            try {
+                const userDoc = await getDoc(doc(db, "utilisateurs", currentUser.uid));
+                if (userDoc.exists()) {
+                    userFavs = userDoc.data().favoris || [];
+                }
+            } catch (error) {
+                console.error("Erreur de récupération des favoris :", error);
+            }
+        }
+
+        try {
+            const data = await fetchShops();
+
+            list.innerHTML = ""; // Nettoyer la liste avant affichage
+            data.forEach(shop => {
+                const isFav = userFavs.includes(shop.id_magasin);
+                const card = document.createElement('div');
+                card.className = 'project-card-container';
+                card.innerHTML = `
+                    <div class="project-card-inner">
+                        <div class="btn-fav ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite('${shop.id_magasin}', this)">
+                            <i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i>
+                        </div>
+
+                        <div class="card-face card-front" style="background-image: url('${shop.image}')">
+                            <h3>${shop.nom}</h3>
+                            <div class="flip-hint">Details <i class="fa-solid fa-rotate"></i></div>
+                        </div>
+                        <div class="card-face card-back">
+                            <h3>${shop.nom}</h3>
+                            <p>${shop.description}</p>
+                            <a href="../sport/catalogue.html?shop=${shop.id_magasin}" class="btn-visit">VOIR MAGASIN</a>
+                        </div>
+                    </div>`;
+                list.appendChild(card);
+                requestAnimationFrame(() => {
+    card.classList.add('loaded');
+});
+
+            });
+        } catch (error) {
+            console.error("Erreur lors du chargement des magasins :", error);
+        }
+    }
+
+    // --- INITIALISATION DES AUTRES FONCTIONS (RECHERCHE, ETC.) ---
+       async function buildSearchData() {
+        const data = [];
+
+        const shops = await fetchShops();
+
+        const shopIds = [];
+        shops.forEach((shop) => {
+            if (shop && shop.nom && shop.id_magasin) {
+                data.push({
+                    name: shop.nom,
+                    type: "Magasin",
+                    url: `../sport/catalogue.html?shop=${shop.id_magasin}`,
+                    tags: [String(shop.id_magasin).toLowerCase()]
+                });
+                shopIds.push(shop.id_magasin);
+            }
+        });
+
+        if (shopIds.length) {
+            const seen = new Set();
+            for (const shopId of shopIds) {
+                try {
+                    const q = query(
+                        collection(db, "produits"),
+                        where("id_magasin", "==", String(shopId).toLowerCase().trim())
+                    );
+                    const snapshot = await getDocs(q);
+                    snapshot.forEach((docSnap) => {
+                        const p = docSnap.data();
+                        if (p && p.nom) {
+                            const key = p.nom.toLowerCase();
+                            if (!seen.has(key)) {
+                                seen.add(key);
+                                data.push({
+                                    name: p.nom,
+                                    type: "Produit",
+                                    url: `../sport/catalogue.html?shop=${shopId}`,
+                                    tags: Array.isArray(p.tags) ? p.tags.map(t => String(t).toLowerCase()) : []
+                                });
+                            }
+                        }
+                    });
+                } catch (e) {
+                    console.error("Erreur chargement produits:", e);
+                }
+            }
+        }
+
+        return data;
+    }
+
+
+    function scoreMatch(item, term) {
+        const name = String(item.name || "").toLowerCase();
+        if (name.startsWith(term)) return 3;
+        if (name.includes(term)) return 2;
+        if ((item.tags || []).some(t => t.includes(term))) return 1;
+        return 0;
+    }
+
+    async function initSearch() {
+        const searchInput = document.getElementById('main-search');
+        const suggestionsBox = document.getElementById('search-suggestions');
+        if (!searchInput || !suggestionsBox) return;
+
+        const data = await buildSearchData();
+
+        searchInput.addEventListener('input', (e) => {
+            const value = e.target.value.toLowerCase().trim();
+            if (!value) {
+                suggestionsBox.style.display = 'none';
+                return;
+            }
+
+            const matches = data
+                .map(item => ({ item, score: scoreMatch(item, value) }))
+                .filter(x => x.score > 0)
+                .sort((a, b) => b.score - a.score || a.item.name.localeCompare(b.item.name))
+                .slice(0, 5)
+                .map(x => x.item);
+
+            if (matches.length) {
+                suggestionsBox.style.display = 'block';
+                suggestionsBox.innerHTML = matches.map(match => `
+                    <div class="suggestion-item" onclick="window.location.href='${match.url}'">
+                        <span>
+                            ${match.type === "Produit" ? '<i class="fa-solid fa-box"></i>' : match.type === "Magasin" ? '<i class="fa-solid fa-store"></i>' : '<i class="fa-solid fa-layer-group"></i>'}
+                            ${match.name}
+                        </span>
+                        <span class="suggestion-type">${match.type}</span>
+                    </div>
+                `).join('');
+            } else {
+                suggestionsBox.style.display = 'none';
+            }
+        });
+    }
+
+    initSearch();    // Fermer les suggestions de recherche si on clique Ã  l'extÃ©rieur
+window.addEventListener('click', function(e) {
+    const searchContainer = document.querySelector('.search-container');
+    const suggestionsBox = document.getElementById('search-suggestions');
+
+    // Si le clic n'est PAS Ã  l'intÃ©rieur du conteneur de recherche
+    if (searchContainer && !searchContainer.contains(e.target)) {
+        if (suggestionsBox) {
+            suggestionsBox.style.display = 'none';
+        }
+    }
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.category-card');
+
+    cards.forEach(card => {
+        card.addEventListener('click', function() {
+            // Sur mobile, on ajoute ou enlÃ¨ve la classe 'flipped' au clic
+            if (window.innerWidth <= 1024) {
+                this.classList.toggle('flipped');
+            }
+        });
+    });
+});
+
+
+
+
+</script>
+  
+<script type="module" src="../mcm/indexjs.js">// Fermer si on clique en dehors de la boÃ®te blanche
+    window.onclick = (event) => {
+        if (event.target == sellerModal) {
+            sellerModal.style.display = "none";
+        }
+    };
+
+let isAdmin = false;
+
+
+
+    
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

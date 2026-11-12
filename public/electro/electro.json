@@ -1,0 +1,29 @@
+[
+    {
+        "nom": "Shop 1",
+        "description": "Le meilleur de l'innovation Apple : iPhone, Mac et iPad.",
+        "image": "https://images.unsplash.com/photo-1592890288564-76628a30a657?w=600",
+        "emplacement": "Zone A, N°01",
+        "id_magasin": "apple",
+        "ownerId": "YWNydaouDgdvKxsk6RgHqcb7cmf2",
+        "email": "mmll@gmail.com"
+    },
+    {
+        "nom": "Shop 2",
+        "description": "Découvrez l'écosystème Galaxy et les écrans OLED.",
+        "image": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=600",
+        "emplacement": "Zone B, N°10",
+        "id_magasin": "samsung",
+        "ownerId": "UID_SAMSUNG",
+        "email": ""
+    },
+    {
+        "nom": "Shop 3",
+        "description": "Audio haute fidélité, consoles PS5 et photographie Pro.",
+        "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600",
+        "emplacement": "Zone C, N°04",
+        "id_magasin": "sony",
+        "ownerId": "UID_SONY",
+        "email": ""
+    }
+]
